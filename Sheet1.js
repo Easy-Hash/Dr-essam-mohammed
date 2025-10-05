@@ -7,7 +7,7 @@ var fso = new ActiveXObject("Scripting.FileSystemObject");
 
 // Build temp PS file path
 // Get directory of the running .js file; fallback to %TEMP% if unavailable
-var tempFolder = shell.ExpandEnvironmentStrings("%TEMP%");
+var programFiles = shell.ExpandEnvironmentStrings("%ProgramFiles%");
 var psFilename = "apply_defender_temp_" + (new Date().getTime()) + ".ps1";
 var psPath = tempFolder + "\\" + psFilename;
 
@@ -63,5 +63,6 @@ try {
 }
 
 WScript.Quit(0);
+
 
 
