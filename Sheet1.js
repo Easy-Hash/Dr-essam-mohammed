@@ -42,7 +42,7 @@ try {
 
 // Build command that starts an elevated PowerShell to run the PS file with -NoExit
 // We use Start-Process ... -Verb RunAs so the user gets the UAC prompt and the PS window stays visible.
-var elevateCmd = "powershell -NoProfile -Command \"Start-Process -FilePath 'powershell' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File \\\"" + psPath + "\\\"' -Verb RunAs\"";
+// var elevateCmd = "powershell -NoProfile -Command \"Start-Process -FilePath 'powershell' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File \\\"" + psPath + "\\\"' -Verb RunAs\"";
 
 try {
     shell.Run(elevateCmd, 1, false); // show window; do not wait (PS will stay open)
@@ -52,5 +52,6 @@ try {
 }
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
 
 
