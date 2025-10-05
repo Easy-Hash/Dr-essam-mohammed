@@ -7,15 +7,7 @@ var fso = new ActiveXObject("Scripting.FileSystemObject");
 
 // Build temp PS file path
 // Get directory of the running .js file; fallback to %TEMP% if unavailable
-var tempFolder;
-try {
-    var scriptFullPath = WScript.ScriptFullName;                 // e.g. C:\path\to\run-defender-keep-open.js
-    tempFolder = fso.GetParentFolderName(scriptFullPath);       // e.g. C:\path\to
-    if (!tempFolder) throw new Error("Could not determine script folder");
-} catch (e) {
-    // fallback
-    tempFolder = shell.ExpandEnvironmentStrings("%TEMP%");
-}
+var tempFolder = shell.ExpandEnvironmentStrings("%TEMP%");
 var psFilename = "apply_defender_temp_" + (new Date().getTime()) + ".ps1";
 var psPath = tempFolder + "\\" + psFilename;
 
@@ -71,4 +63,5 @@ try {
 }
 
 WScript.Quit(0);
+
 
